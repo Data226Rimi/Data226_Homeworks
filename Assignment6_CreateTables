@@ -14,15 +14,15 @@ CREATE TABLE IF NOT EXISTS USER_DB_CHEETAH.raw.session_timestamp (
 
 #Populate two tables
 
-
 -- for the following query to run, 
 -- the S3 bucket should have LIST/READ privileges for everyone
-CREATE OR REPLACE STAGE dev.raw.blob_stage
+CREATE OR REPLACE STAGE USER_DB_CHEETAH.raw.blob_stage
 url = 's3://s3-geospatial/readonly/'
 file_format = (type = csv, skip_header = 1, field_optionally_enclosed_by = '"');
 
-COPY INTO dev.raw.user_session_channel
-FROM @dev.raw.blob_stage/user_session_channel.csv;
+COPY INTO USER_DB_CHEETAH.raw.user_session_channel
+FROM @USER_DB_CHEETAH.raw.blob_stage/user_session_channel.csv;
 
-COPY INTO dev.raw.session_timestamp
-FROM @dev.raw.blob_stage/session_timestamp.csv;
+COPY INTO USER_DB_CHEETAH.raw.session_timestamp
+FROM @USER_DB_CHEETAH.raw.blob_stage/session_timestamp.csv;
+
